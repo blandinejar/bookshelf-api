@@ -2,3 +2,4 @@
 %project=bookshelf
 
 init 2021-07-23T09:08:12Z Blandine Jarysta <blandine.jarysta@gmail.com> # Création de la BDD bookshelf
+book_view 2021-07-23T12:35:52Z Blandine Jarysta <blandine.jarysta@gmail.com> # ajout d'une vue pour la récupération des livres avec les id de genre et d'auteur

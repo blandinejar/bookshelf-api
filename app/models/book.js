@@ -2,7 +2,7 @@ const CoreModel = require('./core');
 
 class BookModel extends CoreModel {
 
-    static tableName = 'book';
+    static tableName = 'book_with_genre_and_author';
 
     static fields = [
         "id",
@@ -15,6 +15,8 @@ class BookModel extends CoreModel {
         "page_count",
         "cover",
         "publisher_id",
+        // "genre_ids",
+        // "author_ids",
         "created_at",
         "updated_at"
     ];
@@ -23,6 +25,8 @@ class BookModel extends CoreModel {
         // exécute le constructeur du CodeModel
         super(data);
         this.publisher = `${process.env.API_ENDPOINT}publisher/${data.publisher_id}`;
+        this.genres = data.genre_ids.map(genre_id => `${process.env.API_ENDPOINT}genres/${genre_id}`);
+        this.authors = data.author_ids.map(author_id => `${process.env.API_ENDPOINT}authors/${author_id}`);
     }
 
 
