@@ -7,7 +7,7 @@ CHECK (VALUE ~ '^[A-Z]{2}$');
 COMMENT ON DOMAIN country_iso_code_2 IS 'check if the country matches with the rule ISO 3166-1 alpha-1';
 
 CREATE DOMAIN isbn AS text
-CHECK (VALUE ~ '^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$');
+CHECK (VALUE ~ '^978\d{10}$');
 COMMENT ON DOMAIN isbn IS 'check if isbn is valid';
 
 CREATE DOMAIN url AS text
@@ -52,14 +52,16 @@ CREATE TABLE "genre" (
 
 CREATE TABLE "book" (
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "isbn" isbn NOT NULL,
+    "isbn" text NOT NULL,
+    -- domain isbn
     "original_title" text NOT NULL,
     "title" text,
     "excerpt" text,
-    "publication_date" date,
+    "publication_date" int,
     "language" country_iso_code_2 NOT NULL,
     "page_count" pint NOT NULL,
-    "cover" url,
+    "cover" text,
+    -- domain url
     "publisher_id" int NOT NULL REFERENCES "publisher"("id"),
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT now(),
     "updated_at" TIMESTAMPTZ

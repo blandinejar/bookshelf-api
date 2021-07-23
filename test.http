@@ -1,0 +1,8 @@
+### afficher
+GET http://localhost:3000/api/books
+
+### erreur 404
+GET http://locahost:3000/api/fgkjjh
+
+### get one book
+GET http://localhost:3000/api/books/1
