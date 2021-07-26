@@ -1,4 +1,3 @@
-const { BookModel } = require('.');
 const client = require('../client');
 
 class CoreModel {
@@ -16,7 +15,7 @@ class CoreModel {
     }
 
     setData(data){
-        for (const field of BookModel.fields){
+        for (const field of this.constructor.fields){
             if(data[field]) {
                 this[field] = data[field];
             }

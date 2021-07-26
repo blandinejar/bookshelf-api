@@ -27,16 +27,12 @@ const bookController = {
         try {
             const bookId = request.params.id;
             
-
             const book = await BookModel.findOne(bookId);
             if(!book){
                 return next;
             }
             response.json({ data: {book} })
-
-            if(!book){
-                return next;
-            }
+            
         } catch (error) {
             console.error(error);
             response.status(500).json({ data: [], error: `A server error occurred, please try again later` });
@@ -52,11 +48,8 @@ const bookController = {
      async add(request, response, next) {
         try {
             const newBook = new BookModel(request.body);
-            if(!book){
-                return next;
-            }
 
-            const book = await newBook.insert();
+            const book = await newBook.save();
             // dans le cas d'une insertion, afin d'être le plus précis possible, on utilise le code 201 created
             response.status(201).json({ data: {book} })
         } catch (error) {
@@ -79,8 +72,6 @@ const bookController = {
             // ! par contre, attention : findOne est une méthode static, et on ne peut pas utiliser une méthode static sur une instance. Donc on ne peut pas faire cela 
 
             await book.save();
-
-
             response.json({ data: book });
 
         } catch (error) {

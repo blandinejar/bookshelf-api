@@ -24,10 +24,19 @@ Content-Type: application/json
 }
 
 ### mise à jour partielle
-PATCH http://localhost:3000/api/books/9
+PATCH http://localhost:3000/api/books/7
 Content-Type: application/json
 
 {
     
+    "excerpt": "la servante écarlate n'était pas bleue mais rouge"
+}
+
+### mise à jour complète
+PUT http://localhost:3000/api/books/8
+Content-Type: application/json
+
+{
+    "isbn": "1234567891111",
     "excerpt": "la servante écarlate n'était pas bleue mais rouge"
 }
