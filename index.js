@@ -13,6 +13,7 @@ app.set('views', './app/views');
 // body parser
 app.use(express.json());
 
+app.use(express.static('public'));
 
 app.use('/api', apiRouter);
 app.use('/', websiteRouter);

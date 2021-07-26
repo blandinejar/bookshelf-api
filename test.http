@@ -22,3 +22,12 @@ Content-Type: application/json
     "cover": "http://www.google.fr/1.jpg",
     "publisher_id": 1
 }
+
+### mise à jour partielle
+PATCH http://localhost:3000/api/books/9
+Content-Type: application/json
+
+{
+    
+    "excerpt": "la servante écarlate n'était pas bleue mais rouge"
+}

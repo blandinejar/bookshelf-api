@@ -4,18 +4,7 @@
 BEGIN;
 
 
-DROP TABLE "book_has_author";
-
-DROP TABLE "book_has_genre";
-
-DROP TABLE "book";
-
-DROP TABLE "genre";
-
-DROP TABLE "author";
-
-DROP TABLE "publisher";
-
+DROP TABLE "book_has_genre", "book_has_author", "book", "genre", "publisher", "author" CASCADE;
 
 DROP DOMAIN country_iso_code_2;
 

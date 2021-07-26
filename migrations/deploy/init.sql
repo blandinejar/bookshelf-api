@@ -2,6 +2,8 @@
 
 BEGIN;
 
+-- DROP TABLE IF EXISTS publisher, author, genre, book, book_has_author, book_has_genre CASCADE;
+
 CREATE DOMAIN country_iso_code_2 AS text
 CHECK (VALUE ~ '^[A-Z]{2}$');
 COMMENT ON DOMAIN country_iso_code_2 IS 'check if the country matches with the rule ISO 3166-1 alpha-1';
@@ -62,7 +64,7 @@ CREATE TABLE "book" (
     "page_count" pint NOT NULL,
     "cover" text,
     -- domain url
-    "publisher_id" int NOT NULL REFERENCES "publisher"("id"),
+    "publisher_id" int NOT NULL REFERENCES "publisher"("id") ON DELETE CASCADE,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT now(),
     "updated_at" TIMESTAMPTZ
 );
@@ -70,8 +72,8 @@ CREATE TABLE "book" (
 
 CREATE TABLE "book_has_author" (
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "book_id" int NOT NULL REFERENCES "book"("id"),
-    "author_id" int NOT NULL REFERENCES "author"("id"),
+    "book_id" int NOT NULL REFERENCES "book"("id") ON DELETE CASCADE,
+    "author_id" int NOT NULL REFERENCES "author"("id") ON DELETE CASCADE,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT now(),
     UNIQUE ("book_id", "author_id")
     
@@ -79,8 +81,8 @@ CREATE TABLE "book_has_author" (
 
 CREATE TABLE "book_has_genre" (
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "book_id" int NOT NULL REFERENCES "book"("id"),
-    "genre_id" int NOT NULL REFERENCES "genre"("id"),
+    "book_id" int NOT NULL REFERENCES "book"("id") ON DELETE CASCADE,
+    "genre_id" int NOT NULL REFERENCES "genre"("id") ON DELETE CASCADE,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT now(),
     UNIQUE ("book_id", "genre_id")
 );

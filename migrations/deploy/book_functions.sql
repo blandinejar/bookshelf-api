@@ -11,11 +11,13 @@ CREATE FUNCTION get_book() RETURNS SETOF book_with_genre_and_author AS $$
     SELECT * FROM book_with_genre_and_author;
 $$ LANGUAGE SQL;
 
--- frécupérer un livre
-
+-- récupérer un livre
+-- le mot-clé strict permet de ne même pas exécuter les instructions de la fonction si jamais les arguments fournis ne correspondent pas aux paramètres définis
+-- il renvoie null directement, sous la forme du type de retour
 CREATE FUNCTION get_book(input_id INT) RETURNS book_with_genre_and_author AS $$
     SELECT * FROM book_with_genre_and_author WHERE id = input_id;
-$$ LANGUAGE SQL;
+$$ LANGUAGE SQL STRICT;
+-- dans l'appli, on vérifie si le retour est null ou pas, pour savoir si cela s'est bien passé
 
 -- ajouter un livre
 CREATE OR REPLACE FUNCTION insert_book(book json) RETURNS book AS $$
@@ -44,7 +46,7 @@ INSERT INTO book
 )
 
 RETURNING *
-$$ LANGUAGE SQL;
+$$ LANGUAGE SQL STRICT;
 
 -- CREATE FUNCTION insert_book(book) RETURNS book AS $$
 --     INSERT INTO book
@@ -69,7 +71,28 @@ $$ LANGUAGE SQL;
 
 
 -- modifier un livre
+CREATE FUNCTION update_book(bookInput json) RETURNS book AS $$
+UPDATE book
+SET
+    "isbn" = bookInput->>'isbn',
+    "original_title" = bookInput->>'original_title',
+    "title" = bookInput->>'title',
+    "excerpt" = bookInput->>'excerpt',
+    "publication_date" = (bookInput->>'publication_date')::int,
+    "language" = bookInput->>'language',
+    "page_count" = (bookInput->>'page_count')::int,
+    "cover" = bookInput->>'cover',
+    "publisher_id" = (bookInput->>'publisher_id')::int
+    WHERE id = (bookInput->>'id')::int
+
+RETURNING *
+$$ LANGUAGE SQL STRICT;
+
 
 -- supprimer un livre
+-- cas particulier du delete, il ne renvoie rien, mais une fonction en SQL doit toujours renvoyer quelque chose. Ici, on renvoie du néant pour "hacker" la contrainte
+CREATE FUNCTION delete_book(input_id int) RETURNS void AS $$
+DELETE FROM book WHERE id = input_id;
+$$ LANGUAGE SQL;
 
 COMMIT;
