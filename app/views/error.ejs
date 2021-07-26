@@ -1,5 +1,13 @@
-<% include('partials/header') %>
-    <h1>Error</h1>
-    <%=message%>
+<%- include('partials/header') %>
+
+    <h1>Wrong way...</h1>
+
+
+
+<div class="alert alert-dismissible alert-danger">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Oh snap!</strong> <%=message%>
+  </div>
+  
     
-<% include('partials/footer') %>
+<%- include('partials/footer') %>
