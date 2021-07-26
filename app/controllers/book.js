@@ -23,15 +23,37 @@ const bookController = {
      * @param {object} response express response
      * @param {object} next next
      */
-    book(request, response, next) {
+    async book(request, response, next) {
         try {
             const bookId = request.params.id;
-            response.json({ data: {} })
+
+            const book = await BookModel.findOne(bookId);
+            response.json({ data: {book} })
         } catch (error) {
             console.error(error);
             response.json({ data: [], error: `A server error occurred, please try again later` });
         }
-    }
+    },
+
+    /**
+     * Add book
+     * @param {object} request express request
+     * @param {object} response express response
+     * @param {object} next next
+     */
+     async add(request, response, next) {
+        try {
+            const newBook = new BookModel(request.body);
+
+            const book = await newBook.insert();
+            response.json({ data: {book} })
+        } catch (error) {
+            console.error(error);
+            response.json({ data: [], error: `A server error occurred, please try again later` });
+        }
+    },
+
+    
 
 }
 

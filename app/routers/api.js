@@ -5,7 +5,8 @@ const apiController = require('../controllers/api');
 const router = express.Router();
 
 router.route('/books')
-    .get(bookController.allBooksList);
+    .get(bookController.allBooksList)
+    .post(bookController.add)
 
 
 router.route('/books/:id(\\d+)')

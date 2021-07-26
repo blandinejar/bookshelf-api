@@ -5,4 +5,20 @@ GET http://localhost:3000/api/books
 GET http://locahost:3000/api/fgkjjh
 
 ### get one book
-GET http://localhost:3000/api/books/1
+GET http://localhost:3000/api/books/4
+
+### add book
+POST http://localhost:3000/api/books
+Content-Type: application/json
+
+{
+    "isbn": "9781234567891",
+    "original_title": "the handmaid's tale",
+    "title": "la servante écarlate",
+    "excerpt": "la servante écarlate n'était pas bleue",
+    "publication_date": 1985,
+    "language": "FR",
+    "page_count": 300,
+    "cover": "http://www.google.fr/1.jpg",
+    "publisher_id": 1
+}
