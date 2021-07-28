@@ -13,7 +13,7 @@ This is a simple API to manage a book collection.
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone git@github.com:blandinejar/bookshelf-api.git
 ```
 
 Go to the project directory
